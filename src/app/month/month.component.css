@@ -1,0 +1,34 @@
+button{
+    height: 40px;
+    width: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    position: relative;
+    cursor: pointer;
+}
+.month{
+    background-color: transparent;
+    color: var(--color-font-text);
+}
+.month::before{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-color: var(--color-item-on-hover);
+    transition: all .2s ease-in-out;
+    transform: scale(0);
+}
+.month:hover::before{
+    transform: scale(1);
+}
+
+.Selected{
+    border-radius: 8px;
+    background-color: var(--color-item-highlight);
+    color: var(--color-font-on-highlight);
+}
