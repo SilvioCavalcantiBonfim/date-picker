@@ -6,7 +6,15 @@
           <path d="M5.30005 11.3L0.700048 6.69999C0.600048 6.59999 0.529382 6.49165 0.488049 6.37499C0.446715 6.25832 0.425715 6.13332 0.425049 5.99999C0.425049 5.86665 0.446049 5.74165 0.488049 5.62499C0.530049 5.50832 0.600715 5.39999 0.700048 5.29999L5.30005 0.699987C5.48338 0.516654 5.71672 0.424988 6.00005 0.424988C6.28338 0.424988 6.51672 0.516654 6.70005 0.699987C6.88338 0.883321 6.97505 1.11665 6.97505 1.39999C6.97505 1.68332 6.88338 1.91665 6.70005 2.09999L2.80005 5.99999L6.70005 9.89999C6.88338 10.0833 6.97505 10.3167 6.97505 10.6C6.97505 10.8833 6.88338 11.1167 6.70005 11.3C6.51672 11.4833 6.28338 11.575 6.00005 11.575C5.71672 11.575 5.48338 11.4833 5.30005 11.3Z" fill="currentcolor"/>
         </svg>          
       </button>
-      <span class="enphasis heading">{{selectedDate.getUTCFullYear()}}</span>
+      <span class="enphasis heading" *ngIf="!mode">{{selectedDate.getUTCFullYear()}}</span>
+      <div class="monthDetalhe" *ngIf="mode">
+        <span class="enphasis heading">{{monthsFull[selectedDate.getUTCMonth()]}} {{selectedDate.getUTCFullYear()}}</span>
+        <button class="NavigationButton" style="margin-left: 8px;" (click)="mode = !mode">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.3 14.3L8.70001 11.7C8.38335 11.3833 8.31268 11.021 8.48801 10.613C8.66335 10.205 8.97568 10.0007 9.42501 10H14.575C15.025 10 15.3377 10.2043 15.513 10.613C15.6883 11.0217 15.6173 11.384 15.3 11.7L12.7 14.3C12.6 14.4 12.4917 14.475 12.375 14.525C12.2583 14.575 12.1333 14.6 12 14.6C11.8667 14.6 11.7417 14.575 11.625 14.525C11.5083 14.475 11.4 14.4 11.3 14.3Z" fill="currentcolor"/>
+          </svg>            
+        </button>
+      </div>
       <button class="NavigationButton" (click)="incrementYear()">
         <svg width="12" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0.700048 11.3C0.516715 11.1167 0.425049 10.8833 0.425049 10.6C0.425049 10.3167 0.516715 10.0833 0.700048 9.89999L4.60005 5.99999L0.700048 2.09999C0.516715 1.91665 0.425049 1.68332 0.425049 1.39999C0.425049 1.11665 0.516715 0.883321 0.700048 0.699987C0.883382 0.516654 1.11671 0.424988 1.40005 0.424988C1.68338 0.424988 1.91672 0.516654 2.10005 0.699987L6.70005 5.29999C6.80005 5.39999 6.87105 5.50832 6.91305 5.62499C6.95505 5.74165 6.97572 5.86665 6.97505 5.99999C6.97505 6.13332 6.95405 6.25832 6.91205 6.37499C6.87005 6.49165 6.79938 6.59999 6.70005 6.69999L2.10005 11.3C1.91672 11.4833 1.68338 11.575 1.40005 11.575C1.11671 11.575 0.883382 11.4833 0.700048 11.3Z" fill="currentcolor"/>
@@ -20,6 +28,18 @@
         (click)="update(i,selectedDate.getUTCFullYear())"
         *ngFor="let month of months, index as i"
       />
+    </div>
+    <div class="calender" *ngIf="mode">
+      <div class="weekLabel">
+        <div class="day" *ngFor="let day of weekDay"><span class="default">{{day}}</span></div>
+      </div>
+      <div class="dayList">
+        <app-day 
+          [value]="day.getDate()" 
+          [mode]="(day.getUTCMonth() === controller.month)?1:0" 
+          *ngFor="let day of monthDay()"
+        />
+      </div>
     </div>
   </div>
 </main>
