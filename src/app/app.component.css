@@ -32,6 +32,7 @@ main{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    row-gap: 8px;
 }
 .weekLabel{
     display: flex;
